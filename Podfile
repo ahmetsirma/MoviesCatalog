@@ -6,6 +6,8 @@ target 'MoviesCatalog' do
   use_frameworks!
 
   # Pods for MoviesCatalog
+  pod 'Alamofire'
+  pod 'Kingfisher'
 
   target 'MoviesCatalogTests' do
     inherit! :search_paths
