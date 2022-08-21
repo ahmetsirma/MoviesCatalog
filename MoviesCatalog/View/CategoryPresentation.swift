@@ -6,3 +6,9 @@
 //
 
 import Foundation
+
+
+public struct CategoryPresentation {
+    let name: String?
+    let movies: [MoviePresentation]?
+}
