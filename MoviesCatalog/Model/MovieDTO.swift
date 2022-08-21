@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Movie: Decodable {
+public struct MovieDTOModel: Decodable {
     
     public enum CodingKeys: String, CodingKey {
         case title = "title"

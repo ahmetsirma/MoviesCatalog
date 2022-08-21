@@ -16,7 +16,7 @@ class MovieListViewController: UIViewController {
     
     var categories: [CategoryPresentation]?
     
-    var viewModel: MovieListVMProtocol! {
+    var viewModel: MovieListViewModelProtocol! {
         didSet {
             viewModel.delegate = self
         }
@@ -24,6 +24,7 @@ class MovieListViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        AppDelegate.current().rootView = self
         // Do any additional setup after loading the view.
         self.collectionViewScreen.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "CategoryCell")
         self.viewModel = MovieListViewModel()
@@ -31,7 +32,7 @@ class MovieListViewController: UIViewController {
     }
 }
 
-extension MovieListViewController: MovieListVMDelegate {
+extension MovieListViewController: MovieListViewModelDelegate {
     func showMovies(categories: [CategoryPresentation]) {
         self.categories = categories
         for view in self.collectionViewScreen.subviews {
@@ -76,23 +77,32 @@ extension MovieListViewController: UICollectionViewDataSource {
             let categoryCollection = createCategoryCollection(index: indexPath.row, rect: CGRect(x: 0, y: 5, width: cell.frame.width, height: cell.frame.height))
             cell.addSubview(categoryCollection)
             
+            //Title label creating
             let titleLabel = UILabel()
             titleLabel.text = self.categories?[indexPath.row].name
-            titleLabel.textColor = .black
+            titleLabel.textColor = .white
             titleLabel.frame = CGRect(x: 0, y: 0, width: cell.frame.width, height: 20)
             cell.addSubview(titleLabel)
             
-            
-            //cell.backgroundColor = indexPath.row == 0 ? .yellow : (indexPath.row == 1 ? .orange : (indexPath.row == 2 ? .red : .blue))  //TODO Temp
             return cell
         }
         else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MovieCollectionCell", for: indexPath)
             let movie = self.categories?[collectionView.tag].movies?[indexPath.row] ?? nil
+            
+            //Loading for cell posters
+            let loadingIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
+            loadingIndicator.startAnimating()
+            loadingIndicator.color = .white
+            loadingIndicator.center = cell.center
+            cell.addSubview(loadingIndicator)
+            
+            //Posters for MovieCells
             let imgPoster = UIImageView()
             imgPoster.kf.setImage(with: URL(string: "https://image.tmdb.org/t/p/original/\(movie?.posterPath ?? "")"))
             imgPoster.frame = CGRect(x: 0, y: 0, width: cell.frame.width, height: cell.frame.height)
             cell.addSubview(imgPoster)
+            
             return cell
         }
     }
@@ -109,7 +119,7 @@ extension MovieListViewController: UICollectionViewDataSource {
         collectionview.showsVerticalScrollIndicator = false
         collectionview.frame = rect
         collectionview.autoresizingMask = .flexibleWidth
-        //collectionview.backgroundColor = index == 0 ? .yellow : (index == 1 ? .orange : (index == 2 ? .red : .blue))
+        collectionview.backgroundColor = .clear     //index == 0 ? .yellow : (index == 1 ? .orange : (index == 2 ? .red : .blue))
         collectionview.tag = index
         return collectionview
     }
@@ -118,10 +128,20 @@ extension MovieListViewController: UICollectionViewDataSource {
 extension MovieListViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if collectionView == collectionViewScreen {
-            return CGSize(width: self.view.frame.width, height: 300)
+            return CGSize(width: Int(self.view.frame.width), height: Configuration.MovieListSectionHeight)
         }
         else {
-            return CGSize(width: 150, height: 250)
+            return CGSize(width: Configuration.MovieListPosterSize.width, height: Configuration.MovieListPosterSize.height)
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if collectionView == collectionViewScreen {
+            return
+        }
+        if indexPath.row == (self.categories?[collectionView.tag].movies!.count)! - 3 {
+            print("ScrollToEnd")
+            self.viewModel.loadMore(categoryIdx: collectionView.tag)
         }
     }
 }

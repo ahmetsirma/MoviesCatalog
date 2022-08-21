@@ -10,13 +10,14 @@ import AVFoundation
 
 class MoviePlayerViewController: UIViewController {
 
-    var movie: MoviePresentation?
+    var movie: MoviePresentationModel?
     var player: AVPlayer?
     var playerLayer: AVPlayerLayer?
     
     @IBOutlet weak var viewPlayer: UIView!
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var lblOverview: UILabel!
+    @IBOutlet weak var indLoading: UIActivityIndicatorView!
     
     var viewModel: MoviePlayerViewModelProtocol! {
         didSet {
@@ -38,6 +39,11 @@ class MoviePlayerViewController: UIViewController {
         playerLayer?.backgroundColor = UIColor.black.cgColor
         viewPlayer.layer.addSublayer(playerLayer!)
         player?.play()
+        indLoading.stopAnimating()
+    }
+    
+    @IBAction func btnCloseTapped(_ sender: Any) {
+        self.dismiss(animated: true)
     }
     
     override func viewDidLayoutSubviews() {
@@ -54,10 +60,15 @@ class MoviePlayerViewController: UIViewController {
             
         }
     }
+    
+    override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
+        super.dismiss(animated: flag, completion: completion)
+        self.player?.pause()
+    }
 }
 
 extension MoviePlayerViewController: MoviePlayerViewModelDelegate {
-    func showMovie(movie: MoviePresentation) {
+    func showMovie(movie: MoviePresentationModel) {
         self.movie = movie
         self.lblTitle.text = movie.title
         self.lblOverview.text = movie.overview

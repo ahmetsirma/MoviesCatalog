@@ -20,7 +20,7 @@ public struct DiscoverMoviesResponse: Decodable {
     }
     
     //public let page: String
-    public let results: [Movie]
+    public let results: [MovieDTOModel]
 }
 
 public class ApiClient {
@@ -28,7 +28,7 @@ public class ApiClient {
     static let shared = ApiClient()
     
     public func getMoviesByCategory(sortBy: String = "popularity.desc", completion: @escaping (Result<DiscoverMoviesResponse, Error>) -> Void) {
-        let url = "https://api.themoviedb.org/3/discover/movie?api_key=6a60b320af251a774b0fd81dc6f481e0&sort_by=\(sortBy)"
+        let url = "https://api.themoviedb.org/3/discover/movie?api_key=\(Configuration.ApiKey)&sort_by=\(sortBy)"
         
         AF.request(url).response { response in
             switch response.result {
@@ -44,9 +44,11 @@ public class ApiClient {
                     }
                     catch {
                         completion(.failure(.serializationError(internal: error)))
+                        MessageBox.show(title: "Error", message: error.localizedDescription);
                     }
             case .failure(let error):
                 completion(.failure(.networkError(internal: error)))
+                MessageBox.show(title: "Error", message: error.localizedDescription);
             }
         }
     }

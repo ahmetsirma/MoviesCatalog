@@ -8,7 +8,7 @@
 import Foundation
 
 
-public class MoviePresentation: NSObject {
+public class MoviePresentationModel: NSObject {
     public let title: String?
     public let overview: String?
     public let posterPath: String?

@@ -9,7 +9,7 @@ import UIKit
 
 class MovieDetailsViewController: UIViewController {
 
-    var movie: MoviePresentation?
+    var movie: MoviePresentationModel?
     
     @IBOutlet weak var imgPoster: UIImageView!
     @IBOutlet weak var lblTitle: UILabel!
@@ -18,7 +18,7 @@ class MovieDetailsViewController: UIViewController {
     @IBOutlet weak var lblReleaseDate: UILabel!
     @IBOutlet weak var btnPlay: UIButton!
     
-    var viewModel: MovieDetailsVMProtocol! {
+    var viewModel: MovieDetailsViewModelProtocol! {
         didSet {
             viewModel.delegate = self
         }
@@ -48,11 +48,14 @@ class MovieDetailsViewController: UIViewController {
         self.viewModel.playMovie(movie: movieToPlay)
     }
     
+    @IBAction func btnCloseTapped(_ sender: Any) {
+        self.dismiss(animated: true)
+    }
 }
 
 
-extension MovieDetailsViewController: MovieDetailsVMDelegate {
-    func showMovie(movie: MoviePresentation) {
+extension MovieDetailsViewController: MovieDetailsViewModelDelegate {
+    func showMovie(movie: MoviePresentationModel) {
         self.movie = movie
         self.imgPoster.kf.setImage(with: URL(string: "https://image.tmdb.org/t/p/original/\(movie.posterPath ?? "")"))
         self.lblTitle.text = movie.title
