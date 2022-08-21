@@ -36,8 +36,6 @@ public final class MovieDetailsViewModel: MovieDetailsVMProtocol {
         let moviePlayerScreen = storyboard.instantiateViewController(withIdentifier: "MoviePlayerViewController") as! MoviePlayerViewController
         moviePlayerScreen.modalPresentationStyle = .fullScreen
         (self.delegate as! MovieDetailsViewController).present(moviePlayerScreen, animated: true, completion: nil)
-        //moviePlayerScreen.viewModel.movie = movie
+        moviePlayerScreen.viewModel.movie = movie
     }
-    
-    
 }

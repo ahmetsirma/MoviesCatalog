@@ -108,6 +108,7 @@ extension MovieListViewController: UICollectionViewDataSource {
         collectionview.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "MovieCollectionCell")
         collectionview.showsVerticalScrollIndicator = false
         collectionview.frame = rect
+        collectionview.autoresizingMask = .flexibleWidth
         //collectionview.backgroundColor = index == 0 ? .yellow : (index == 1 ? .orange : (index == 2 ? .red : .blue))
         collectionview.tag = index
         return collectionview

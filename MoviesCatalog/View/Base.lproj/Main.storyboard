@@ -27,7 +27,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="2Ox-eo-kZq">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CategoryCell" id="2Ox-eo-kZq">
                                         <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="198-MH-EKC">
@@ -158,7 +158,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hKw-Ki-XzY">
-                                <rect key="frame" x="85" y="831" width="244" height="31"/>
+                                <rect key="frame" x="85" y="821" width="244" height="31"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Play"/>
                                 <connections>
@@ -174,8 +174,8 @@
                             <constraint firstItem="hKw-Ki-XzY" firstAttribute="leading" secondItem="fHp-K8-sLt" secondAttribute="leading" constant="85" id="Grg-43-0El"/>
                             <constraint firstItem="yGL-Zd-Hex" firstAttribute="top" secondItem="fYM-4L-Piv" secondAttribute="bottom" constant="8" id="Jr2-XJ-9uI"/>
                             <constraint firstItem="fHp-K8-sLt" firstAttribute="trailing" secondItem="yGL-Zd-Hex" secondAttribute="trailing" constant="20" id="YPS-jr-6ep"/>
+                            <constraint firstItem="fHp-K8-sLt" firstAttribute="bottom" secondItem="hKw-Ki-XzY" secondAttribute="bottom" constant="10" id="YzB-O7-fIQ"/>
                             <constraint firstItem="fYM-4L-Piv" firstAttribute="top" secondItem="fHp-K8-sLt" secondAttribute="top" id="gfe-P7-nKp"/>
-                            <constraint firstItem="hKw-Ki-XzY" firstAttribute="bottom" secondItem="fHp-K8-sLt" secondAttribute="bottom" id="i4W-3u-8zc"/>
                             <constraint firstItem="fHp-K8-sLt" firstAttribute="trailing" secondItem="hKw-Ki-XzY" secondAttribute="trailing" constant="85" id="qYI-vd-X9w"/>
                             <constraint firstItem="fYM-4L-Piv" firstAttribute="leading" secondItem="fHp-K8-sLt" secondAttribute="leading" id="vVS-Po-hZk"/>
                         </constraints>
@@ -200,13 +200,53 @@
                     <view key="view" contentMode="scaleToFill" id="IHn-fx-1ow">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KAD-Zf-r13" userLabel="viewPlayer">
+                                <rect key="frame" x="0.0" y="44" width="414" height="250"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="250" id="TIv-2K-jwW"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JDZ-cZ-rjM">
+                                <rect key="frame" x="20" y="375" width="374" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AAF-yz-7gz">
+                                <rect key="frame" x="20" y="302" width="374" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="24" id="hfL-RP-cZq"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="EBt-Yc-mIQ"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="AAF-yz-7gz" firstAttribute="top" secondItem="EBt-Yc-mIQ" secondAttribute="top" constant="258" id="8Bl-Qw-ghb"/>
+                            <constraint firstItem="AAF-yz-7gz" firstAttribute="leading" secondItem="EBt-Yc-mIQ" secondAttribute="leading" constant="20" id="8tZ-vu-rgs"/>
+                            <constraint firstItem="KAD-Zf-r13" firstAttribute="trailing" secondItem="EBt-Yc-mIQ" secondAttribute="trailing" id="Agf-0O-uNg"/>
+                            <constraint firstItem="KAD-Zf-r13" firstAttribute="leading" secondItem="EBt-Yc-mIQ" secondAttribute="leading" id="GSI-AZ-0Et"/>
+                            <constraint firstItem="JDZ-cZ-rjM" firstAttribute="top" secondItem="AAF-yz-7gz" secondAttribute="bottom" constant="49" id="JPf-7D-hNb"/>
+                            <constraint firstItem="EBt-Yc-mIQ" firstAttribute="trailing" secondItem="AAF-yz-7gz" secondAttribute="trailing" constant="20" id="nJ3-hh-YcX"/>
+                            <constraint firstItem="EBt-Yc-mIQ" firstAttribute="trailing" secondItem="JDZ-cZ-rjM" secondAttribute="trailing" constant="20" id="vV1-SY-lbc"/>
+                            <constraint firstItem="JDZ-cZ-rjM" firstAttribute="leading" secondItem="EBt-Yc-mIQ" secondAttribute="leading" constant="20" id="xUv-RH-ZDt"/>
+                            <constraint firstItem="KAD-Zf-r13" firstAttribute="top" secondItem="EBt-Yc-mIQ" secondAttribute="top" id="xcG-4y-wwa"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="lblOverview" destination="JDZ-cZ-rjM" id="FaK-CU-cY7"/>
+                        <outlet property="lblTitle" destination="AAF-yz-7gz" id="EWZ-Oz-oJB"/>
+                        <outlet property="viewPlayer" destination="KAD-Zf-r13" id="kha-le-Izi"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="brV-sc-snM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1487" y="119"/>
+            <point key="canvasLocation" x="1486.9565217391305" y="118.52678571428571"/>
         </scene>
     </scenes>
     <resources>
