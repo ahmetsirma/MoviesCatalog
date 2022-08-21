@@ -82,6 +82,8 @@ extension MovieListViewController: UICollectionViewDataSource {
             titleLabel.frame = CGRect(x: 0, y: 0, width: cell.frame.width, height: 20)
             cell.addSubview(titleLabel)
             
+            
+            //cell.backgroundColor = indexPath.row == 0 ? .yellow : (indexPath.row == 1 ? .orange : (indexPath.row == 2 ? .red : .blue))  //TODO Temp
             return cell
         }
         else {
@@ -106,6 +108,7 @@ extension MovieListViewController: UICollectionViewDataSource {
         collectionview.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "MovieCollectionCell")
         collectionview.showsVerticalScrollIndicator = false
         collectionview.frame = rect
+        //collectionview.backgroundColor = index == 0 ? .yellow : (index == 1 ? .orange : (index == 2 ? .red : .blue))
         collectionview.tag = index
         return collectionview
     }

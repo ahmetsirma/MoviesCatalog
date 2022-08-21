@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 protocol MovieListVMProtocol {
     var delegate: MovieListVMDelegate? {get set}
@@ -20,7 +21,7 @@ protocol MovieListVMDelegate {
 }
 
 
-public class MovieListViewModel: MovieListVMProtocol {
+public final class MovieListViewModel: MovieListVMProtocol {
     
     var delegate: MovieListVMDelegate?
     var categories: [CategoryPresentation]?
@@ -73,6 +74,18 @@ public class MovieListViewModel: MovieListVMProtocol {
     
     func itemSelected(categoryIdx: Int, itemIdx: Int) {
         let movie = self.categories?[categoryIdx].movies?[itemIdx]
+
+        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        let movieDetailScreen = storyboard.instantiateViewController(withIdentifier: "MovieDetailsViewController") as! MovieDetailsViewController
+        
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            movieDetailScreen.modalPresentationStyle = .pageSheet
+        }
+        else {
+            movieDetailScreen.modalPresentationStyle = .fullScreen
+        }
+        (self.delegate as! MovieListViewController).present(movieDetailScreen, animated: true, completion: nil)
+        movieDetailScreen.viewModel.movie = movie
         
     }
 }
