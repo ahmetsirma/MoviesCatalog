@@ -27,8 +27,8 @@ public class ApiClient {
     
     static let shared = ApiClient()
     
-    public func getMoviesByCategory(sortBy: String = "popularity.desc", completion: @escaping (Result<DiscoverMoviesResponse, Error>) -> Void) {
-        let url = "https://api.themoviedb.org/3/discover/movie?api_key=\(Configuration.ApiKey)&sort_by=\(sortBy)"
+    public func getMoviesByCategory(sortBy: String = "popularity.desc", page: Int = 1, completion: @escaping (Result<DiscoverMoviesResponse, Error>) -> Void) {
+        let url = "\(Configuration.ApiUrl)?api_key=\(Configuration.ApiKey)&sort_by=\(sortBy)&page=\(page)"
         
         AF.request(url).response { response in
             switch response.result {

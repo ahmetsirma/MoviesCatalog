@@ -10,5 +10,6 @@ import Foundation
 
 public struct CategoryPresentation {
     let name: String?
-    var movies: [MoviePresentationModel]?
+    var movies: [MoviePresentation]?
+    var page: Int = 1
 }

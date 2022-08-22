@@ -244,6 +244,15 @@
                                     <action selector="btnCloseTapped:" destination="D3f-aM-KJz" eventType="touchUpInside" id="pOq-9L-Wl9"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleAspectFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EfR-Tl-TY8">
+                                <rect key="frame" x="182" y="144" width="50" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" backgroundImage="pause"/>
+                                <connections>
+                                    <action selector="btnPlayPauseTapped:" destination="D3f-aM-KJz" eventType="touchUpInside" id="Ef8-BS-FN7"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="EBt-Yc-mIQ"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -260,6 +269,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="btnPlayPause" destination="EfR-Tl-TY8" id="IYR-XT-jei"/>
                         <outlet property="indLoading" destination="lah-hg-Afq" id="oOc-8V-sod"/>
                         <outlet property="lblOverview" destination="JDZ-cZ-rjM" id="FaK-CU-cY7"/>
                         <outlet property="lblTitle" destination="AAF-yz-7gz" id="EWZ-Oz-oJB"/>
@@ -273,6 +283,7 @@
     </scenes>
     <resources>
         <image name="calendar" width="178" height="164"/>
+        <image name="pause" width="113" height="210"/>
         <image name="rating_star" width="192" height="182"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

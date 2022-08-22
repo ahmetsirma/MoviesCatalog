@@ -9,7 +9,7 @@ import UIKit
 
 class MovieDetailsViewController: UIViewController {
 
-    var movie: MoviePresentationModel?
+    var movie: MoviePresentation?
     
     @IBOutlet weak var imgPoster: UIImageView!
     @IBOutlet weak var lblTitle: UILabel!
@@ -55,7 +55,7 @@ class MovieDetailsViewController: UIViewController {
 
 
 extension MovieDetailsViewController: MovieDetailsViewModelDelegate {
-    func showMovie(movie: MoviePresentationModel) {
+    func showMovie(movie: MoviePresentation) {
         self.movie = movie
         self.imgPoster.kf.setImage(with: URL(string: "https://image.tmdb.org/t/p/original/\(movie.posterPath ?? "")"))
         self.lblTitle.text = movie.title

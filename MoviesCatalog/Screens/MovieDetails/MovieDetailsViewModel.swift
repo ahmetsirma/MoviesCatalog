@@ -11,18 +11,18 @@ import UIKit
 
 protocol MovieDetailsViewModelProtocol {
     var delegate: MovieDetailsViewModelDelegate? {get set}
-    var movie: MoviePresentationModel?  {get set}
-    func playMovie(movie: MoviePresentationModel) -> Void
+    var movie: MoviePresentation?  {get set}
+    func playMovie(movie: MoviePresentation) -> Void
 }
 
 protocol MovieDetailsViewModelDelegate {
-    func showMovie(movie: MoviePresentationModel) -> Void
+    func showMovie(movie: MoviePresentation) -> Void
 }
 
 
 public final class MovieDetailsViewModel: MovieDetailsViewModelProtocol {
     var delegate: MovieDetailsViewModelDelegate?
-    var movie: MoviePresentationModel? {
+    var movie: MoviePresentation? {
         didSet {
             if movie == nil {
                 return
@@ -31,7 +31,7 @@ public final class MovieDetailsViewModel: MovieDetailsViewModelProtocol {
         }
     }
     
-    func playMovie(movie: MoviePresentationModel) {
+    func playMovie(movie: MoviePresentation) {
         let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         let moviePlayerScreen = storyboard.instantiateViewController(withIdentifier: "MoviePlayerViewController") as! MoviePlayerViewController
         moviePlayerScreen.modalPresentationStyle = .fullScreen

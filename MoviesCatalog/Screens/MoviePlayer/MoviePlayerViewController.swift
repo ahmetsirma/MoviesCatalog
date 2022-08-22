@@ -10,7 +10,7 @@ import AVFoundation
 
 class MoviePlayerViewController: UIViewController {
 
-    var movie: MoviePresentationModel?
+    var movie: MoviePresentation?
     var player: AVPlayer?
     var playerLayer: AVPlayerLayer?
     
@@ -18,6 +18,7 @@ class MoviePlayerViewController: UIViewController {
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var lblOverview: UILabel!
     @IBOutlet weak var indLoading: UIActivityIndicatorView!
+    @IBOutlet weak var btnPlayPause: UIButton!
     
     var viewModel: MoviePlayerViewModelProtocol! {
         didSet {
@@ -52,11 +53,19 @@ class MoviePlayerViewController: UIViewController {
             self.playerLayer?.removeFromSuperlayer()
             self.playerLayer?.frame = self.view.bounds
             self.view.layer.addSublayer(self.playerLayer!)
+            
+            self.btnPlayPause.removeFromSuperview()
+            self.view.addSubview(self.btnPlayPause)
+            self.btnPlayPause.center = self.view.center
         }
         else {
             self.playerLayer?.removeFromSuperlayer()
             self.playerLayer?.frame = CGRect(x: 0, y: 0, width: self.viewPlayer.frame.width, height: 250)
             self.viewPlayer.layer.addSublayer(self.playerLayer!)
+            
+            self.btnPlayPause.removeFromSuperview()
+            self.viewPlayer.addSubview(self.btnPlayPause)
+            self.btnPlayPause.center = self.viewPlayer.center
             
         }
     }
@@ -65,10 +74,21 @@ class MoviePlayerViewController: UIViewController {
         super.dismiss(animated: flag, completion: completion)
         self.player?.pause()
     }
+    
+    @IBAction func btnPlayPauseTapped(_ sender: Any) {
+        if self.player?.timeControlStatus == .playing {
+            self.player?.pause()
+            self.btnPlayPause.setBackgroundImage(UIImage(named: "play"), for: .normal)
+        }
+        else {
+            self.player?.play()
+            self.btnPlayPause.setBackgroundImage(UIImage(named: "pause"), for: .normal)
+        }
+    }
 }
 
 extension MoviePlayerViewController: MoviePlayerViewModelDelegate {
-    func showMovie(movie: MoviePresentationModel) {
+    func showMovie(movie: MoviePresentation) {
         self.movie = movie
         self.lblTitle.text = movie.title
         self.lblOverview.text = movie.overview

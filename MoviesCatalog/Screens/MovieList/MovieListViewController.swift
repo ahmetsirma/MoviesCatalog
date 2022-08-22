@@ -35,10 +35,21 @@ class MovieListViewController: UIViewController {
 extension MovieListViewController: MovieListViewModelDelegate {
     func showMovies(categories: [CategoryPresentation]) {
         self.categories = categories
-        for view in self.collectionViewScreen.subviews {
-            view.removeFromSuperview()
-        }
         self.collectionViewScreen.reloadData()
+    }
+    
+    func showMoreMovies(categories: [CategoryPresentation]) {
+        self.categories = categories
+        for view in collectionViewScreen.subviews {
+            if view.isMember(of: UICollectionViewCell.self) {
+                for subView in view.subviews
+                {
+                    if subView.isMember(of: UICollectionView.self) {
+                        (subView as! UICollectionView).reloadData()
+                    }
+                }
+            }
+        }
     }
     
     func showLoading(show:Bool)
@@ -74,6 +85,11 @@ extension MovieListViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == collectionViewScreen {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CategoryCell", for: indexPath)
+            
+            for view in cell.subviews {
+                view.removeFromSuperview()
+            }
+            
             let categoryCollection = createCategoryCollection(index: indexPath.row, rect: CGRect(x: 0, y: 5, width: cell.frame.width, height: cell.frame.height))
             cell.addSubview(categoryCollection)
             
@@ -90,16 +106,13 @@ extension MovieListViewController: UICollectionViewDataSource {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MovieCollectionCell", for: indexPath)
             let movie = self.categories?[collectionView.tag].movies?[indexPath.row] ?? nil
             
-            //Loading for cell posters
-            let loadingIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
-            loadingIndicator.startAnimating()
-            loadingIndicator.color = .white
-            loadingIndicator.center = cell.center
-            cell.addSubview(loadingIndicator)
+            //Borders
+            cell.layer.borderWidth = 1
+            cell.layer.borderColor = Color.white.cgColor
             
             //Posters for MovieCells
             let imgPoster = UIImageView()
-            imgPoster.kf.setImage(with: URL(string: "https://image.tmdb.org/t/p/original/\(movie?.posterPath ?? "")"))
+            imgPoster.kf.setImage(with: URL(string: "\(Configuration.ImageUrl)\(movie?.posterPath ?? "")"))
             imgPoster.frame = CGRect(x: 0, y: 0, width: cell.frame.width, height: cell.frame.height)
             cell.addSubview(imgPoster)
             

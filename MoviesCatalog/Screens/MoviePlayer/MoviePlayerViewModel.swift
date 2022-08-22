@@ -10,19 +10,19 @@ import Foundation
 
 protocol MoviePlayerViewModelProtocol {
     var delegate: MoviePlayerViewModelDelegate? {get set}
-    var movie: MoviePresentationModel?  {get set}
-    func playMovie(movie: MoviePresentationModel) -> Void
+    var movie: MoviePresentation?  {get set}
+    func playMovie(movie: MoviePresentation) -> Void
 }
 
 protocol MoviePlayerViewModelDelegate {
-    func showMovie(movie: MoviePresentationModel) -> Void
+    func showMovie(movie: MoviePresentation) -> Void
 }
 
 
 public final class MoviePlayerViewModel: MoviePlayerViewModelProtocol {
     
     var delegate: MoviePlayerViewModelDelegate?
-    var movie: MoviePresentationModel? {
+    var movie: MoviePresentation? {
         didSet {
             if movie == nil {
                 return
@@ -31,7 +31,7 @@ public final class MoviePlayerViewModel: MoviePlayerViewModelProtocol {
         }
     }
     
-    func playMovie(movie: MoviePresentationModel) {
+    func playMovie(movie: MoviePresentation) {
         
     }
 }
